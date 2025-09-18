@@ -1,0 +1,123 @@
+{
+  "critical_files_definition": {
+    "description": "Configuration defining critical files and folders needed for live real money trading operations",
+    "version": "1.0.0",
+    "last_updated": "2025-01-01",
+    "categories": {
+      "core_trading": {
+        "description": "Essential trading algorithm and strategy files",
+        "patterns": [
+          "src/strategies/**/*.py",
+          "src/algorithms/**/*.py",
+          "trading_engine/**/*.py",
+          "strategy_*.py",
+          "algorithm_*.py",
+          "main_trading.py",
+          "trading_bot.py"
+        ],
+        "required": true
+      },
+      "configuration": {
+        "description": "Critical configuration files for live trading",
+        "patterns": [
+          "config/live_trading.json",
+          "config/api_keys.json",
+          "config/trading_parameters.json",
+          "config/risk_management.json",
+          ".env",
+          "trading_config.yaml",
+          "live_config.ini"
+        ],
+        "required": true,
+        "security_notice": "Contains sensitive API keys and trading parameters"
+      },
+      "risk_management": {
+        "description": "Risk management and safety mechanisms",
+        "patterns": [
+          "src/risk_management/**/*.py",
+          "risk_*.py",
+          "stop_loss/**/*.py",
+          "position_sizing/**/*.py",
+          "portfolio_management/**/*.py"
+        ],
+        "required": true
+      },
+      "data_handling": {
+        "description": "Data ingestion, processing, and storage components",
+        "patterns": [
+          "src/data/**/*.py",
+          "data_handler.py",
+          "market_data/**/*.py",
+          "database/**/*.py",
+          "data_feed/**/*.py"
+        ],
+        "required": true
+      },
+      "monitoring_logging": {
+        "description": "Monitoring, logging, and alerting systems",
+        "patterns": [
+          "src/monitoring/**/*.py",
+          "src/logging/**/*.py",
+          "logger_config.py",
+          "monitoring.py",
+          "alerts/**/*.py",
+          "logs/critical_events.log"
+        ],
+        "required": true
+      },
+      "testing_validation": {
+        "description": "Gold standard testing and validation frameworks",
+        "patterns": [
+          "tests/integration/**/*.py",
+          "tests/live_trading/**/*.py",
+          "validation/**/*.py",
+          "test_live_trading.py",
+          "gold_standard_tests/**/*.py",
+          "backtesting/**/*.py"
+        ],
+        "required": true
+      },
+      "deployment": {
+        "description": "Deployment and environment configuration",
+        "patterns": [
+          "Dockerfile",
+          "docker-compose.yml",
+          "kubernetes/**/*.yaml",
+          "deployment/**/*.py",
+          "requirements.txt",
+          "pyproject.toml",
+          "setup.py",
+          "environment.yml"
+        ],
+        "required": false
+      },
+      "documentation": {
+        "description": "Critical documentation for live trading operations",
+        "patterns": [
+          "docs/trading_guide.md",
+          "docs/api_documentation.md",
+          "docs/risk_management.md",
+          "TRADING_README.md",
+          "DEPLOYMENT_GUIDE.md"
+        ],
+        "required": false
+      }
+    }
+  },
+  "snapshot_settings": {
+    "enabled": true,
+    "snapshot_directory": "live_snapshot",
+    "backup_directory": "backups",
+    "timestamp_format": "%Y%m%d_%H%M%S",
+    "compression": true,
+    "encryption": false,
+    "retention_days": 30
+  },
+  "validation_rules": {
+    "check_file_integrity": true,
+    "verify_configurations": true,
+    "test_imports": true,
+    "check_dependencies": true,
+    "validate_api_connections": false
+  }
+}
