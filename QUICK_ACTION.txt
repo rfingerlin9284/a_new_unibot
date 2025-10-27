@@ -1,0 +1,101 @@
+# ⚡ QUICK ACTION REFERENCE
+
+**Status**: Margin over cap (57.9%), gates active  
+**PIN**: 841921
+
+---
+
+## 🔴 Current Issue
+
+```
+Margin: $1,140 / $1,970 = 57.9%
+Cap:    35% = $689.50
+Over by: +$450 ⚠️
+
+Gate Status: BLOCKING new orders
+```
+
+---
+
+## ✅ FIX: Scale Out (Copy & Run These Commands)
+
+### Option 1: Scale Both (Recommended)
+
+```bash
+cd /home/ing/RICK/RICK_LIVE_PROTOTYPE
+
+# Close 50% of EUR/CHF position
+python3 canary_oanda_connector.py --close pos_117 --percent 50
+
+# Wait 5 seconds
+sleep 5
+
+# Close 50% of USD/CHF position
+python3 canary_oanda_connector.py --close pos_118 --percent 50
+
+# Check new margin (should be ~29%)
+./status.sh | grep Margin
+```
+
+### Option 2: Close EUR/CHF Only (Aggressive)
+
+```bash
+cd /home/ing/RICK/RICK_LIVE_PROTOTYPE
+
+# Close entire EUR/CHF (weaker performer)
+python3 canary_oanda_connector.py --close pos_117 --percent 100
+
+# Check new margin (should be ~29%)
+./status.sh | grep Margin
+```
+
+---
+
+## 📊 Verification Commands
+
+```bash
+# Check current positions
+python3 canary_oanda_connector.py
+
+# Check pending orders
+python3 canary_oanda_connector.py --show-pending
+
+# Check margin and gates
+./status.sh
+
+# View last trades
+tail -20 narration.jsonl
+```
+
+---
+
+## 🎯 What Happens After
+
+Once margin drops to ~29%:
+
+✅ New trades allowed  
+✅ EUR/USD limits can execute  
+✅ Correlation gate clears  
+✅ Time stops still running (3h/6h)  
+
+---
+
+## ⏰ Timeline
+
+```
+11:06 UTC  → Positions opened
+14:06 UTC  → 3-hour gate check (auto-close if R < 0.5)
+17:06 UTC  → 6-hour hard close
+```
+
+---
+
+## 📝 PIN Reference
+
+Charter PIN: **841921**  
+Account: **101-001-31210531-002**  
+Margin Cap: **35% (IMMUTABLE)**
+
+---
+
+**Next**: Execute scale-out, then monitor until 3h mark

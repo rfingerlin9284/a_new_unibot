@@ -1,0 +1,111 @@
+# Position Guardian Makefile — Watch profit improvement metrics
+# Usage: make pg-watch, make pg-report, make pg-metrics
+
+.PHONY: pg-watch pg-report pg-metrics pg-install pg-demo
+
+PG_DIR := /home/ing/RICK/R_H_UNI/plugins/position_guardian
+PG_LOGS := /home/ing/RICK/R_H_UNI/logs
+
+## Install Position Guardian
+pg-install:
+	@echo "🔧 Installing Position Guardian with Profit Autopilot..."
+	@python3 -m pip install -q dataclasses-json 2>/dev/null || true
+	@mkdir -p $(PG_LOGS)
+	@echo "✅ Position Guardian installed at $(PG_DIR)"
+	@echo ""
+	@echo "Next: Run 'make pg-demo' to see it in action"
+
+## Run demo
+pg-demo:
+	@echo "🎬 Running Position Guardian Demo..."
+	@cd $(PG_DIR) && python3 demo_now.py
+	@echo ""
+	@echo "Next: Run 'make pg-report' to see profit improvements"
+
+## Show profit improvement report
+pg-report:
+	@echo "📊 Profit Improvement Analysis:"
+	@cd $(PG_DIR) && python3 profit_tracker.py
+
+## Watch metrics in real-time
+pg-watch:
+	@echo "👀 Watching Position Guardian metrics..."
+	@watch -n 5 'cat $(PG_LOGS)/guardian_metrics.json 2>/dev/null | python3 -m json.tool || echo "Waiting for first metrics..."'
+
+## Show manager integration
+pg-manager:
+	@echo "🎯 Running Manager Integration Test..."
+	@cd $(PG_DIR) && python3 manager_integration.py
+
+## Tail Position Guardian logs
+pg-logs:
+	@tail -f $(PG_LOGS)/position_guardian.log
+
+## Check state file (persistent per-trade peaks/stages)
+pg-state:
+	@echo "📝 Position Guardian State (per-trade memory):"
+	@cat $(PG_LOGS)/guardian_state.json 2>/dev/null | python3 -m json.tool || echo "No state yet (first run)"
+
+## Quick metrics check
+pg-metrics:
+	@echo "📈 Current Guardian Metrics:"
+	@cat $(PG_LOGS)/guardian_metrics.json 2>/dev/null | python3 -m json.tool || echo "No metrics yet"
+
+## Wire into your manager (example)
+pg-wire-manager:
+	@echo "⚡ Wiring Position Guardian into RICK manager..."
+	@echo "Add this to your trading loop:"
+	@echo ""
+	@echo "    from position_guardian.manager_integration import PositionGuardianManager"
+	@echo "    mgr = PositionGuardianManager()"
+	@echo "    mgr.set_account(nav=your_nav, margin_used=your_margin)"
+	@echo "    mgr.add_position(position_obj)"
+	@echo "    allowed, reason = mgr.pg_trade(symbol, side, units)"
+	@echo "    if allowed:"
+	@echo "        submit_order(symbol, side, units)"
+	@echo "    mgr.tick_enforce_positions()  # call every tick"
+	@echo ""
+
+## Full setup and demo
+pg-full-setup: pg-install pg-demo pg-report
+	@echo ""
+	@echo "🎉 Position Guardian Full Setup Complete!"
+	@echo ""
+	@echo "What you have:"
+	@echo "  • Correlation gate: blocks correlated orders"
+	@echo "  • Margin governor: caps leverage at 35%"
+	@echo "  • Auto-breakeven: SL → BE+5 at ≥1R/25p"
+	@echo "  • Trailing stops: S1→BE, S2→18p gap, S3→12p gap"
+	@echo "  • Peak giveback: exits on 40% pullback"
+	@echo "  • Time caps: 3h <0.5R close, 6h hard close"
+	@echo ""
+	@echo "Next steps:"
+	@echo "  1. Read the demo output"
+	@echo "  2. Check profit improvement report"
+	@echo "  3. Integrate pg_trade() into your manager"
+	@echo "  4. Monitor with 'make pg-watch'"
+	@echo ""
+
+help-pg:
+	@echo "Position Guardian — Autonomous Risk & Profit Management"
+	@echo ""
+	@echo "Usage:"
+	@echo "  make pg-install       Install Position Guardian"
+	@echo "  make pg-demo          Run demo with example trades"
+	@echo "  make pg-report        Show profit improvement analysis"
+	@echo "  make pg-watch         Watch metrics in real-time"
+	@echo "  make pg-manager       Test manager integration"
+	@echo "  make pg-logs          Tail Position Guardian logs"
+	@echo "  make pg-metrics       Show current metrics"
+	@echo "  make pg-state         Show per-trade state (peaks/stages)"
+	@echo "  make pg-wire-manager  Show how to integrate into manager"
+	@echo "  make pg-full-setup    Complete setup + demo"
+	@echo ""
+	@echo "Features:"
+	@echo "  🚧 Correlation gate: prevents correlated orders"
+	@echo "  💰 Margin governor: enforces 35% cap"
+	@echo "  🎯 Auto-breakeven: moves SL to breakeven+5"
+	@echo "  📈 Trailing logic: 3 stages of tightening stops"
+	@echo "  🎁 Peak giveback: exits on 40% pullback"
+	@echo "  ⏱️  Time caps: 3h weak performer, 6h hard limit"
+	@echo "  📊 Profit tracking: measures ROI improvements"

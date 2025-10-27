@@ -1,0 +1,179 @@
+# ⌨️ TMUX QUICK REFERENCE CARD
+
+```
+╔════════════════════════════════════════════════════════════════╗
+║                  RICK TRADING TMUX CHEAT SHEET                ║
+║                                                                ║
+║  All shortcuts use: Ctrl+B (prefix) then the key below       ║
+╚════════════════════════════════════════════════════════════════╝
+
+┌─ PANE NAVIGATION ─────────────────────────────────────────────┐
+│                                                                │
+│  ↑ ↓ ← →          Move between panes (arrow keys)            │
+│  o                Cycle to next pane                          │
+│  q                Show pane numbers (1 sec)                   │
+│  ;                Go to last pane                             │
+│                                                                │
+└────────────────────────────────────────────────────────────────┘
+
+┌─ PANE MANAGEMENT ─────────────────────────────────────────────┐
+│                                                                │
+│  z                Toggle maximize/minimize pane               │
+│  x                Kill pane (confirm with 'y')               │
+│  {                Move pane left                              │
+│  }                Move pane right                             │
+│  Ctrl+← → ↑ ↓     Resize pane                                │
+│  Space            Cycle layout                                │
+│                                                                │
+└────────────────────────────────────────────────────────────────┘
+
+┌─ WINDOW MANAGEMENT ───────────────────────────────────────────┐
+│                                                                │
+│  c                New window                                  │
+│  n                Next window                                 │
+│  p                Previous window                             │
+│  0-9              Jump to window number                       │
+│  w                Window list selector                        │
+│  &                Kill window (confirm with 'y')             │
+│  ,                Rename window                               │
+│                                                                │
+└────────────────────────────────────────────────────────────────┘
+
+┌─ SESSION MANAGEMENT ──────────────────────────────────────────┐
+│                                                                │
+│  d                Detach session (leave running)              │
+│  $                Rename session                              │
+│  (                Previous session                            │
+│  )                Next session                                │
+│  L                Last session                                │
+│                                                                │
+└────────────────────────────────────────────────────────────────┘
+
+┌─ TEXT & SCROLLING ────────────────────────────────────────────┐
+│                                                                │
+│  [                Enter scroll mode (↑↓ to scroll)            │
+│  ]                Paste buffer                                │
+│  Ctrl+S           Search forward (in scroll mode)             │
+│  Ctrl+R           Search backward (in scroll mode)            │
+│  q                Exit scroll mode                            │
+│                                                                │
+└────────────────────────────────────────────────────────────────┘
+
+┌─ SPLIT WINDOWS (From Shell) ──────────────────────────────────┐
+│                                                                │
+│  tmux split-window -t rick -h    (Vertical split)            │
+│  tmux split-window -t rick -v    (Horizontal split)          │
+│  tmux split-window -t rick -h -p 50                          │
+│    (Split 50% size)                                           │
+│                                                                │
+└────────────────────────────────────────────────────────────────┘
+
+┌─ USEFUL SHELL COMMANDS ───────────────────────────────────────┐
+│                                                                │
+│  tmux attach-session -t rick                                 │
+│  tmux attach -t rick                  (shorthand)            │
+│  tmux list-sessions                                           │
+│  tmux ls                              (shorthand)            │
+│  tmux list-panes -t rick -a                                  │
+│  tmux kill-session -t rick                                   │
+│  tmux send-keys -t rick:0.0 "command" Enter                 │
+│                                                                │
+└────────────────────────────────────────────────────────────────┘
+
+╔════════════════════════════════════════════════════════════════╗
+║                    RICK TRADING SETUP                         ║
+╚════════════════════════════════════════════════════════════════╝
+
+START TMUX SESSION:
+  tmux attach-session -t rick
+
+CURRENT LAYOUT:
+
+  ┌─────────────────┬─────────────────┐
+  │ Pane 0.0        │ Pane 0.1        │
+  │ Trading Engine  │ Narration       │
+  │ (Left)          │ (Top Right)     │
+  │ 🤖 Trades       │ 🎙️ Rick Talk   │
+  ├─────────────────┼─────────────────┤
+  │ (continued)     │ Pane 0.2        │
+  │                 │ Status          │
+  │                 │ (Bottom Right)  │
+  │                 │ 📊 System       │
+  └─────────────────┴─────────────────┘
+
+NAVIGATE PANES:
+  Ctrl+B then → to go right to narration
+  Ctrl+B then ↓ to go down to status
+  Ctrl+B then ← to go back to engine
+
+MAXIMIZE A PANE:
+  Ctrl+B then z
+  (Press again to return)
+
+SWITCH BETWEEN PANES:
+  Ctrl+B then arrow keys
+  OR
+  Ctrl+B then o (cycles through)
+
+WHEN PANE FREEZES:
+  Ctrl+C (interrupt)
+  Then Ctrl+B then x (kill pane)
+
+EXIT TMUX (KEEP RUNNING):
+  Ctrl+B then d (detaches)
+
+RE-ENTER TMUX:
+  tmux attach-session -t rick
+
+CREATE NEW WINDOW:
+  Ctrl+B then c
+
+KILL EVERYTHING:
+  tmux kill-session -t rick
+
+╔════════════════════════════════════════════════════════════════╗
+║              MOST COMMON WORKFLOW                             ║
+╚════════════════════════════════════════════════════════════════╝
+
+1. Start session:
+   tmux attach-session -t rick
+
+2. Monitor trading:
+   See Pane 0.0 automatically
+
+3. Check narration:
+   Ctrl+B then →
+
+4. See system status:
+   Ctrl+B then ↓
+
+5. Back to trading:
+   Ctrl+B then ← or Ctrl+B then o
+
+6. Full screen on narration:
+   Ctrl+B then z
+
+7. Return to split:
+   Ctrl+B then z (again)
+
+8. Leave it running:
+   Ctrl+B then d
+
+9. Come back later:
+   tmux attach-session -t rick
+
+╔════════════════════════════════════════════════════════════════╗
+║  For full instructions, see: TMUX_PANE_INSTRUCTIONS.md       ║
+╚════════════════════════════════════════════════════════════════╝
+```
+
+---
+
+## 📋 Print This Card
+
+Save this section and keep it in your terminal for quick reference!
+
+**Rick Trading PIN**: 841921  
+**Account**: 101-001-31210531-002  
+**Status**: ✅ LIVE TRADING  
+**Date**: October 20, 2025

@@ -1,0 +1,25 @@
+autobreakeven:
+  r_multiple: 1.0
+  pip_threshold: 25
+  be_offset_pips: 5
+time_stops:
+  minor_hours: 3
+  minor_min_r: 0.5
+  major_hours: 6
+trailing:
+  start_pips: 40
+  tighten_pips: 60
+  atr_mult_stage2: 1.0
+  atr_mult_stage3: 0.7
+  min_distance_pips: 8
+scale_outs:
+  - { threshold: "1.5R_or_35p", percent: 0.50 }
+  - { threshold: "2.5R_or_55p", percent: 0.25 }
+giveback_exit:
+  percent: 0.40
+gates:
+  margin_cap: 0.35
+  usd_correlation: true
+sessions:
+  off_hours_tighten: true
+  friday_exit_utc: "20:55"

@@ -1,0 +1,43 @@
+[Unit]
+Description=RBOTzilla UNI Auto-Heal Watchdog
+Documentation=https://github.com/rbotzilla/uni
+After=network.target
+StartLimitIntervalSec=60
+StartLimitBurst=3
+
+[Service]
+Type=simple
+User=%i
+Group=%i
+WorkingDirectory=/home/ing/RICK/R_H_UNI
+ExecStart=/home/ing/RICK/R_H_UNI/scripts/watchdog.sh start
+ExecStop=/home/ing/RICK/R_H_UNI/scripts/watchdog.sh stop
+Restart=on-failure
+RestartSec=30
+TimeoutStartSec=60
+TimeoutStopSec=30
+KillMode=process
+KillSignal=SIGTERM
+
+# Security settings
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=true
+ReadWritePaths=/home/ing/RICK/R_H_UNI
+ProtectKernelTunables=true
+ProtectKernelModules=true
+ProtectControlGroups=true
+
+# Resource limits
+LimitNOFILE=65536
+LimitNPROC=4096
+MemoryMax=1G
+
+# Logging
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier=rbotzilla-watchdog
+
+[Install]
+WantedBy=multi-user.target

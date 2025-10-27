@@ -1,0 +1,16 @@
+[Unit]
+Description=Autonomous Decision Engine (autonomous position management)
+After=default.target
+
+[Service]
+Type=simple
+Environment=PYTHONUNBUFFERED=1
+WorkingDirectory=%h/RICK/RICK_LIVE_PROTOTYPE
+ExecStart=/usr/bin/env python3 %h/RICK/RICK_LIVE_PROTOTYPE/autonomous_decision_engine.py
+Restart=on-failure
+RestartSec=10
+StandardOutput=append:%h/RICK/RICK_LIVE_PROTOTYPE/logs/autonomous_engine.log
+StandardError=append:%h/RICK/RICK_LIVE_PROTOTYPE/logs/autonomous_engine.err
+
+[Install]
+WantedBy=default.target

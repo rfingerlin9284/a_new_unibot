@@ -1,0 +1,38 @@
+{
+  "groups": {
+    "Intelligence": [
+      "Smart Logic",
+      "Momentum Analyzer",
+      "Strategy Aggregator",
+      "Hive Mind"
+    ],
+    "Risk": [
+      "Risk Manager",
+      "Guardian Gate"
+    ],
+    "Execution": [
+      "Dynamic Leverage",
+      "Position Sizing",
+      "OCO Manager",
+      "Trailing Swarm Shepherd"
+    ],
+    "Infrastructure": [
+      "Pricing Cache",
+      "Narration Writer"
+    ]
+  },
+  "agents": [
+    "Smart Logic",
+    "Momentum Analyzer",
+    "Strategy Aggregator",
+    "Dynamic Leverage",
+    "Position Sizing",
+    "Risk Manager",
+    "Guardian Gate",
+    "OCO Manager",
+    "Trailing Swarm Shepherd",
+    "Pricing Cache",
+    "Hive Mind",
+    "Narration Writer"
+  ]
+}

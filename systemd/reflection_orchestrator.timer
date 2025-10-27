@@ -1,0 +1,18 @@
+[Unit]
+Description=RICK Hive Reflection Orchestrator Timer (30-second reflection cycles)
+Documentation=file:///home/ing/RICK/RICK_LIVE_PROTOTYPE/HIVE_REFLECTION_GUIDE.md
+Requires=reflection_orchestrator.service
+
+[Timer]
+# Run every 30 seconds
+OnBootSec=5sec
+OnUnitActiveSec=30sec
+
+# Randomize slightly to avoid thundering herd
+RandomizedDelaySec=2sec
+
+# What to run
+Unit=reflection_orchestrator.service
+
+[Install]
+WantedBy=timers.target

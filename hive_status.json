@@ -1,0 +1,27 @@
+{
+  "timestamp": "2025-10-20T15:16:40.470197+00:00",
+  "cycle_num": 1,
+  "status": "PARTIAL",
+  "positions_scanned": 3,
+  "positions_compliant": 0,
+  "violations_count": 3,
+  "violations": [
+    "AUD_JPY: RR_INSUFFICIENT (3.20:1, min 3.2:1)",
+    "EUR_USD: RR_INSUFFICIENT (3.20:1, min 3.2:1)",
+    "GBP_USD: RR_INSUFFICIENT (3.20:1, min 3.2:1)"
+  ],
+  "decisions_count": 0,
+  "decisions": [],
+  "actions": [
+    "HOLD - no changes recommended"
+  ],
+  "history": [
+    {
+      "cycle": 1,
+      "timestamp": "2025-10-20T15:16:40.470197+00:00",
+      "status": "PARTIAL",
+      "positions": 3,
+      "compliant": 0
+    }
+  ]
+}
