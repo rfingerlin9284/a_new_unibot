@@ -80,22 +80,24 @@ def test_load_json_config():
         assert loaded == test_config, "Loaded config should match original"
         
         # Test non-existent file
+        exception_raised = False
         try:
             load_json_config(os.path.join(tmpdir, "nonexistent.json"))
-            assert False, "Should raise FileNotFoundError"
         except FileNotFoundError:
-            pass
+            exception_raised = True
+        assert exception_raised, "Should raise FileNotFoundError"
         
         # Test invalid JSON
         invalid_file = os.path.join(tmpdir, "invalid.json")
         with open(invalid_file, 'w') as f:
             f.write("{ invalid json }")
         
+        exception_raised = False
         try:
             load_json_config(invalid_file)
-            assert False, "Should raise ValueError"
         except ValueError:
-            pass
+            exception_raised = True
+        assert exception_raised, "Should raise ValueError"
     
     print("✅ test_load_json_config passed")
 
