@@ -10,6 +10,7 @@ import json
 import tempfile
 import shutil
 from pathlib import Path
+from common_utils import ensure_directory_exists, write_file_safely
 
 def create_sample_trading_files():
     """Create sample trading bot files for testing the snapshot tool."""
@@ -28,7 +29,7 @@ def create_sample_trading_files():
     ]
     
     for directory in directories:
-        os.makedirs(directory, exist_ok=True)
+        ensure_directory_exists(directory)
     
     # Create sample files
     sample_files = {
@@ -160,11 +161,7 @@ TELEGRAM_BOT_TOKEN=your_telegram_token
     
     # Write all sample files
     for file_path, content in sample_files.items():
-        dir_path = os.path.dirname(file_path)
-        if dir_path:  # Only create directory if there is one
-            os.makedirs(dir_path, exist_ok=True)
-        with open(file_path, 'w') as f:
-            f.write(content)
+        write_file_safely(file_path, content)
     
     print("✅ Sample trading bot files created successfully!")
     print(f"📁 Created {len(sample_files)} files across {len(directories)} directories")

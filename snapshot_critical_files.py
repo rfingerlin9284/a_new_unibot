@@ -16,6 +16,13 @@ import zipfile
 import logging
 from pathlib import Path
 from typing import List, Dict, Set, Tuple
+from common_utils import (
+    ensure_directory_exists,
+    write_file_safely,
+    get_timestamp,
+    load_json_config,
+    setup_logger
+)
 
 class CriticalFilesSnapshot:
     """
@@ -25,31 +32,9 @@ class CriticalFilesSnapshot:
     def __init__(self, config_path: str = "critical_files_config.json"):
         """Initialize with configuration file."""
         self.config_path = config_path
-        self.config = self._load_config()
-        self.setup_logging()
+        self.config = load_json_config(config_path)
+        self.logger = setup_logger(__name__, 'critical_files_snapshot.log')
         
-    def _load_config(self) -> Dict:
-        """Load configuration from JSON file."""
-        try:
-            with open(self.config_path, 'r') as f:
-                return json.load(f)
-        except FileNotFoundError:
-            raise FileNotFoundError(f"Configuration file {self.config_path} not found")
-        except json.JSONDecodeError as e:
-            raise ValueError(f"Invalid JSON in configuration file: {e}")
-    
-    def setup_logging(self):
-        """Setup logging configuration."""
-        logging.basicConfig(
-            level=logging.INFO,
-            format='%(asctime)s - %(levelname)s - %(message)s',
-            handlers=[
-                logging.FileHandler('critical_files_snapshot.log'),
-                logging.StreamHandler()
-            ]
-        )
-        self.logger = logging.getLogger(__name__)
-    
     def identify_critical_files(self) -> Dict[str, List[str]]:
         """
         Identify all critical files based on configuration patterns.
@@ -135,7 +120,7 @@ class CriticalFilesSnapshot:
         Returns:
             Path to created snapshot
         """
-        timestamp = datetime.datetime.now().strftime(
+        timestamp = get_timestamp(
             self.config['snapshot_settings']['timestamp_format']
         )
         
@@ -144,12 +129,12 @@ class CriticalFilesSnapshot:
         self.logger.info(f"Creating snapshot in {snapshot_dir}")
         
         # Create snapshot directory
-        os.makedirs(snapshot_dir, exist_ok=True)
+        ensure_directory_exists(snapshot_dir)
         
         # Copy files to snapshot directory maintaining structure
         for category, files in critical_files.items():
             category_dir = os.path.join(snapshot_dir, category)
-            os.makedirs(category_dir, exist_ok=True)
+            ensure_directory_exists(category_dir)
             
             for file_path in files:
                 if os.path.exists(file_path):
@@ -158,7 +143,7 @@ class CriticalFilesSnapshot:
                     dest_path = os.path.join(category_dir, relative_path)
                     dest_dir = os.path.dirname(dest_path)
                     
-                    os.makedirs(dest_dir, exist_ok=True)
+                    ensure_directory_exists(dest_dir)
                     
                     try:
                         shutil.copy2(file_path, dest_path)
@@ -208,7 +193,7 @@ class CriticalFilesSnapshot:
         Returns:
             Path to generated report
         """
-        timestamp = datetime.datetime.now().strftime("%Y%m%d_%H%M%S")
+        timestamp = get_timestamp("%Y%m%d_%H%M%S")
         report_path = f"critical_files_report_{timestamp}.md"
         
         with open(report_path, 'w') as f:
