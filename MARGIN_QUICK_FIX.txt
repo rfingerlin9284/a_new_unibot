@@ -1,0 +1,78 @@
+# ⚡ MARGIN CRISIS - 30-SECOND SUMMARY
+
+## 🚨 YOUR SITUATION
+```
+EUR/CHF:  LONG 16,300 @ 0.92404  → -$7.03  (weaker)
+USD/CHF:  LONG 19,000 @ 0.79296  → -$5.06  (stronger)
+Pending:  EUR/USD orders x2 (blocked)
+
+Margin:   $1,140 / $1,970 = 57.9% 🔴 OVER 35% CAP
+Problem:  Same bet (CHF short) duplicated
+```
+
+## 🎯 FIX (OPTION 1 - RECOMMENDED)
+
+**Close 8,150 units EUR/CHF + 5,700 units USD/CHF**
+
+```
+Before:
+  Margin: $1,140 (57.9%)
+  EUR: +16k, USD: +0k, CHF: -35k
+
+After:
+  Margin: ~$600 (30.5%)
+  EUR: +8k, USD: +9k, CHF: -17k
+  
+Result: ✅ SAFE, Trend intact
+```
+
+## 📋 DO THIS NOW (5 minutes)
+
+1. ❌ **Cancel** pending EUR/USD orders (111, 102)
+2. ❌ **Close** 8,150 units EUR/CHF @ market
+3. ❌ **Close** 5,700 units USD/CHF @ market
+4. ✅ **Verify** margin now <35%
+
+## 🛡️ GATES NOW ACTIVE
+
+| Gate | Status | Action |
+|------|--------|--------|
+| **Margin Cap** | 🔴 ACTIVE | Blocks new orders if >35% |
+| **Correlation** | 🔴 ACTIVE | Blocks same-side increases |
+| **Time Stop** | 🟢 ACTIVE | Close at 3h (if <0.5R) / 6h (hard) |
+| **SL Validation** | 🟢 ACTIVE | Ensures SL >= 18 pips floor |
+
+## ❌ DON'T DO THIS
+- ❌ Try new orders (gate blocks them)
+- ❌ Ignore time stops (auto-close at 6h)
+- ❌ Leave pending orders (auto-cancelled)
+- ❌ Stack same currency again (correlation gate blocks it)
+
+## ✅ DO DO THIS
+- ✅ Scale out now (2 clicks)
+- ✅ Monitor time stops (3h check point)
+- ✅ Keep SLs tight (18+ pips)
+- ✅ Watch margin <35%
+
+## 🔐 AFTER YOU SCALE
+
+New orders allowed IF:
+- ✅ Margin < 35%
+- ✅ Doesn't increase same currency bucket
+
+Example (ALLOWED):
+- GBP/USD buy → new currency ✅
+- SHORT EUR → reduces EUR exposure ✅
+- LONG CHF → hedges CHF short ✅
+
+Example (BLOCKED):
+- EUR/USD buy → increases EUR more ❌
+- USD/JPY buy → increases USD more ❌
+
+---
+
+## 🔗 FULL DOCS
+See: `MARGIN_ACTION_PLAN.md` (detailed) or `TMUX_PANE_INSTRUCTIONS.md` (terminal help)
+
+**PIN**: 841921  
+**Status**: 🛡️ Margin gate ENFORCED

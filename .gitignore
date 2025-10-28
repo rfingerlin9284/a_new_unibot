@@ -1,0 +1,46 @@
+# Secrets and environment
+.env
+.env.*
+!*.env.example
+!*.env.template
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+*.egg-info/
+
+# Virtual environments
+.venv/
+.venv*/
+venv/
+env/
+
+# Logs and runtime artifacts
+logs/
+*.log
+narration.jsonl
+support_upload_*/
+snapshots/
+data/
+backtesting/
+.archive_legacy_docs/
+.archive_*/
+env_new.env
+
+# OS/editor
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+
+# Node
+node_modules/
+
+# Build/coverage
+dist/
+build/
+coverage/
+*.coverage

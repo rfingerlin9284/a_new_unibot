@@ -1,0 +1,466 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "🟢 START EVERYTHING (Rick + Hive Mind + Dashboard)",
+      "type": "shell",
+      "command": "bash",
+      "args": ["${workspaceFolder}/SMART_STARTUP.sh"],
+      "isBackground": false,
+      "presentation": {
+        "reveal": "always",
+        "panel": "dedicated",
+        "focus": true,
+        "showReuseMessage": false
+      },
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      },
+      "detail": "🔥 SMART STARTUP: Detects running services, graceful reuse, 7-phase boot with verification"
+    },
+    {
+      "label": "🪄 Left Pane → Live Narration Follow",
+      "type": "shell",
+      "command": "bash",
+      "args": ["${workspaceFolder}/scripts/pane_left_follow_narration.sh"],
+      "presentation": { "reveal": "always", "panel": "shared", "focus": false },
+      "detail": "Switch the left pane to a live, plain-English narration stream"
+    },
+    {
+      "label": "🖥️ Left Pane → Full Monitor",
+      "type": "shell",
+      "command": "bash",
+      "args": ["${workspaceFolder}/scripts/pane_left_full_monitor.sh"],
+      "presentation": { "reveal": "always", "panel": "shared", "focus": false },
+      "detail": "Restore the left pane to the full monitor (status + narration + positions)"
+    },
+    {
+      "label": "👥 Agents: Show (Top-Right)",
+      "type": "shell",
+      "command": "bash",
+      "args": ["${workspaceFolder}/scripts/pane_topright_agents_show.sh"],
+      "presentation": { "reveal": "always", "panel": "shared", "focus": false },
+      "detail": "Show grouped agents list in the top-right pane"
+    },
+    {
+      "label": "🙈 Agents: Hide (Top-Right)",
+      "type": "shell",
+      "command": "bash",
+      "args": ["${workspaceFolder}/scripts/pane_topright_agents_hide.sh"],
+      "presentation": { "reveal": "always", "panel": "shared", "focus": false },
+      "detail": "Hide agents list in the top-right pane"
+    },
+    {
+      "label": "📎 Attach to Dashboard (tmux)",
+      "type": "shell",
+      "command": "bash",
+      "args": ["-c", "tmux attach -t rbotzilla-dashboard || echo 'Dashboard is not running. Run: 🎮 OPEN DASHBOARD ONLY'"],
+      "presentation": { "reveal": "always", "panel": "new", "focus": true },
+      "detail": "Attach your terminal to the running 3-pane tmux dashboard"
+    },
+    {
+      "label": "📜 View Narration Log",
+      "type": "shell",
+      "command": "python3",
+      "args": ["${workspaceFolder}/tools/pretty_narration.py", "--tail", "20"],
+      "isBackground": true,
+      "presentation": {
+        "reveal": "always",
+        "panel": "dedicated",
+        "focus": true
+      },
+      "detail": "Live narration stream (plain English summaries; no JSON, no code)"
+    },
+    {
+      "label": "� RLP: tmux Narration + ML Filter",
+      "type": "shell",
+      "command": "bash",
+      "args": ["-c", "cd ${workspaceFolder} && chmod +x scripts/tmux_narration_ml_side.sh scripts/stream_ml_filter.sh 2>/dev/null || true && scripts/tmux_narration_ml_side.sh"],
+      "presentation": { "reveal": "always", "panel": "new", "focus": true },
+      "detail": "Open a tmux session with left=pretty narration, right=ML filtered events"
+    },
+    {
+      "label": "�🧠 START Hive Consensus Updater",
+      "type": "shell",
+      "command": "python3",
+      "args": ["${workspaceFolder}/util/hive_consensus_updater.py"],
+      "isBackground": true,
+      "presentation": {
+        "reveal": "always",
+        "panel": "dedicated",
+        "focus": false
+      },
+      "detail": "Continuously writes config/hive_consensus.json based on practice momentum"
+    },
+    {
+      "label": "📡 START Shared Pricing Cache",
+      "type": "shell",
+      "command": "python3",
+      "args": ["${workspaceFolder}/util/pricing_cache_updater.py", "--interval", "2"],
+      "isBackground": true,
+      "presentation": {
+        "reveal": "always",
+        "panel": "dedicated",
+        "focus": false
+      },
+      "detail": "Updates data/pricing.json for all agents to read (unified source)"
+    },
+    {
+      "label": "🎮 OPEN DASHBOARD ONLY (Rick + Hive already running)",
+      "type": "shell",
+      "command": "bash",
+      "args": ["${workspaceFolder}/start_dashboard.sh"],
+      "isBackground": true,
+      "presentation": {
+        "reveal": "always",
+        "panel": "dedicated",
+        "focus": true
+      },
+      "detail": "Open 3-pane tmux dashboard (assumes Rick/Hive/Engine already running in background)"
+    },
+    {
+      "label": "🤖 START Rick LLM (Ollama) - Always Running",
+      "type": "shell",
+      "command": "ollama serve",
+      "isBackground": true,
+      "presentation": {
+        "reveal": "silent",
+        "panel": "shared"
+      },
+      "detail": "Start Ollama server for Rick narration - keeps running in background"
+    },
+    {
+      "label": "🐝 START Hive Mind (Trading Engine) - Always Running",
+      "type": "shell",
+      "command": "python3",
+      "args": ["${workspaceFolder}/oanda_trading_engine.py"],
+      "isBackground": true,
+      "presentation": {
+        "reveal": "always",
+        "panel": "dedicated",
+        "focus": true
+      },
+      "detail": "Start OANDA trading engine with Hive Mind decision-making - keeps running"
+    },
+    {
+      "label": "📊 MONITOR: Live Narration + Positions (Left Pane)",
+      "type": "shell",
+      "command": "python3",
+      "args": ["${workspaceFolder}/dashboard_live_monitor.py"],
+      "isBackground": true,
+      "presentation": {
+        "reveal": "always",
+        "panel": "dedicated",
+        "focus": true
+      },
+      "detail": "Display live narration stream, active positions, Charter parameters"
+    },
+    {
+      "label": "🧠 MONITOR: AI Decision Filtering (Top-Right Pane)",
+      "type": "shell",
+      "command": "python3",
+      "args": ["${workspaceFolder}/ai_decision_monitor.py"],
+      "isBackground": true,
+      "presentation": {
+        "reveal": "always",
+        "panel": "dedicated",
+        "focus": true
+      },
+      "detail": "Watch Momentum → Smart Logic → Stop Loss → Hive Mind → Guardian decisions in real-time"
+    },
+    {
+      "label": "🎮 CONTROL: Manual Command Terminal (Bottom-Right Pane)",
+      "type": "shell",
+      "command": "bash",
+      "args": ["${workspaceFolder}/interactive_command_terminal.sh"],
+      "isBackground": true,
+      "presentation": {
+        "reveal": "always",
+        "panel": "dedicated",
+        "focus": true
+      },
+      "detail": "Manual control: start, stop, status, positions, log, help, exit"
+    },
+    {
+      "label": "🛑 STOP EVERYTHING (Rick + Hive + Dashboard)",
+      "type": "shell",
+      "command": "bash",
+      "args": ["-c", "pkill -f 'ollama|oanda_trading_engine|tmux|python3 dashboard|bash start_dashboard|interactive_command_terminal' && sleep 1 && echo '✅ All systems stopped'"],
+      "presentation": {
+        "reveal": "always",
+        "panel": "new",
+        "focus": true
+      },
+      "detail": "❌ EMERGENCY STOP - Kill Rick, Hive Mind, and all dashboard processes"
+    },
+    {
+      "label": "🔄 RESTART EVERYTHING (Clean kill + fresh start)",
+      "type": "shell",
+      "command": "bash",
+      "args": ["-c", "pkill -9 -f 'ollama|oanda_trading|tmux|python3 dashboard' ; sleep 2 ; cd ${workspaceFolder} && (ollama serve &) && sleep 2 && python3 oanda_trading_engine.py & sleep 1 && bash start_dashboard.sh"],
+      "isBackground": true,
+      "presentation": {
+        "reveal": "always",
+        "panel": "dedicated",
+        "focus": true
+      },
+      "detail": "Force kill everything then do fresh ONE-CLICK START of Rick + Hive + Dashboard"
+    },
+    {
+      "label": "💬 TALK TO RICK: View Narration Stream",
+      "type": "shell",
+      "command": "python3",
+      "args": ["${workspaceFolder}/tools/pretty_narration.py", "--tail", "20"],
+      "isBackground": true,
+      "presentation": {
+        "reveal": "always",
+        "panel": "dedicated",
+        "focus": true
+      },
+      "detail": "Live narration stream (clean plain English, no JSON keys)"
+    },
+    {
+      "label": "🐝 HIVE STATUS: Check Trading Engine Status",
+      "type": "shell",
+      "command": "bash",
+      "args": ["-c", "ps aux | grep -E 'oanda_trading|ollama' | grep -v grep && echo '' && echo '✅ Rick (Ollama) and Hive Mind (Trading Engine) are RUNNING'"],
+      "presentation": {
+        "reveal": "always",
+        "panel": "new",
+        "focus": false
+      },
+      "detail": "Verify Rick and Hive Mind are running"
+    },
+    {
+      "label": "📈 VIEW: Account Balance & Stats",
+      "type": "shell",
+      "command": "python3",
+      "args": ["${workspaceFolder}/canary_oanda_connector.py"],
+      "presentation": {
+        "reveal": "always",
+        "panel": "new",
+        "focus": true
+      },
+      "detail": "Quick check of OANDA practice account status"
+    },
+    {
+      "label": "🧪 TEST: Verify OANDA Connection",
+      "type": "shell",
+      "command": "python3",
+      "args": ["${workspaceFolder}/test_live_brokers.py", "--paper"],
+      "presentation": {
+        "reveal": "always",
+        "panel": "new",
+        "focus": true
+      },
+      "detail": "Test OANDA API connectivity"
+    },
+    {
+      "label": "📋 LIST: Show All Running Processes",
+      "type": "shell",
+      "command": "bash",
+      "args": ["-c", "echo '=== RUNNING SYSTEMS ===' && ps aux | grep -E 'ollama|oanda_trading|python3.*dashboard|tmux' | grep -v grep || echo 'No systems running'"],
+      "presentation": {
+        "reveal": "always",
+        "panel": "new",
+        "focus": false
+      },
+      "detail": "Show which systems are currently running"
+    },
+    {
+      "label": "🔧 SETUP: Make All Scripts Executable",
+      "type": "shell",
+      "command": "bash",
+      "args": ["-c", "cd ${workspaceFolder} && chmod +x start_dashboard.sh dashboard_live_monitor.py ai_decision_monitor.py interactive_command_terminal.sh && echo '✅ All scripts executable'"],
+      "presentation": {
+        "reveal": "always",
+        "panel": "new",
+        "focus": false
+      },
+      "detail": "Ensure all dashboard scripts have execute permissions"
+    },
+    {
+      "label": "📚 GUIDE: Show Quick Start Reference",
+      "type": "shell",
+      "command": "bash",
+      "args": ["-c", "cat ${workspaceFolder}/DASHBOARD_QUICKSTART.md | head -80"],
+      "presentation": {
+        "reveal": "always",
+        "panel": "new",
+        "focus": true
+      },
+      "detail": "Display quick start guide"
+    }
+    ,
+    {
+      "label": "📊 VIEW: Strategy Aggregator Status",
+      "type": "shell",
+      "command": "python3",
+      "args": ["${workspaceFolder}/tools/strategy_status.py"],
+      "presentation": {
+        "reveal": "always",
+        "panel": "new",
+        "focus": true
+      },
+      "detail": "Plain-English list of strategy availability (5/5, with names)"
+    }
+    ,
+    {
+      "label": "📈 VIEW: IBKR Paper Status",
+      "type": "shell",
+      "command": "python3",
+      "args": ["${workspaceFolder}/tools/ib_status.py"],
+      "presentation": {
+        "reveal": "always",
+        "panel": "new",
+        "focus": true
+      },
+      "detail": "Quick plain-English IBKR paper connection and account summary"
+    }
+    ,
+    {
+      "label": "� Test IBKR Gateway (Port Check)",
+      "type": "shell",
+      "command": "python3",
+      "args": ["${workspaceFolder}/tools/ib_gateway_check.py"],
+      "presentation": {
+        "reveal": "always",
+        "panel": "new",
+        "focus": true
+      },
+      "detail": "Checks local IB Gateway/TWS API port (paper=4002, live=4001)"
+    }
+    ,
+    {
+      "label": "� Test IBKR Gateway (Custom Host)",
+      "type": "shell",
+      "command": "bash",
+      "args": [
+        "-c",
+        "IB_API_HOST=${input:IBHost} IB_API_PORT=${input:IBPort} python3 ${workspaceFolder}/tools/ib_gateway_check.py"
+      ],
+      "presentation": { "reveal": "always", "panel": "new", "focus": true },
+      "detail": "Probe IB Gateway/TWS on a custom host:port (use Windows host IP if running TWS there)"
+    }
+    ,
+    {
+      "label": "��🤖 START OANDA Paper Trading (ONE-CLICK)",
+      "type": "shell",
+      "command": "bash",
+      "args": ["-c", "cd ${workspaceFolder} && chmod +x START_OANDA_TRADING.sh 2>/dev/null || true && ./START_OANDA_TRADING.sh"],
+      "presentation": { "reveal": "always", "panel": "dedicated", "focus": true },
+      "group": { "kind": "build" },
+      "detail": "Start OANDA paper trading with Ollama + Hive Mind"
+    },
+    {
+      "label": "📊 View OANDA Account Balance",
+      "type": "shell",
+      "command": "python3",
+      "args": ["${workspaceFolder}/canary_oanda_connector.py"],
+      "presentation": { "reveal": "always", "panel": "new", "focus": true },
+      "detail": "Quick check of OANDA practice account status"
+    },
+    {
+      "label": "🧪 Test OANDA Connection",
+      "type": "shell",
+      "command": "python3",
+      "args": ["${workspaceFolder}/test_live_brokers.py", "--paper"],
+      "presentation": { "reveal": "always", "panel": "new", "focus": true },
+      "detail": "Verify OANDA practice API connectivity"
+    },
+    {
+      "label": "🛑 Stop All Trading",
+      "type": "shell",
+      "command": "bash",
+      "args": ["-c", "pkill -f 'oanda_trading_engine.py|oanda_paper_trading.py' && echo '✅ Trading stopped'"] ,
+      "presentation": { "reveal": "always", "panel": "new", "focus": true },
+      "detail": "Emergency stop - kill all trading processes"
+    },
+    {
+      "label": "🎯 RLP: Start Non-HFT Paper Runner (MEGA)",
+      "type": "shell",
+      "command": "bash",
+      "args": [
+        "-c",
+        "cd ${workspaceFolder} && ./start_paper_trading_mega.sh"
+      ],
+      "presentation": {
+        "reveal": "always",
+        "panel": "dedicated",
+        "focus": true
+      },
+      "isBackground": false,
+      "group": {
+        "kind": "build"
+      },
+      "detail": "Start autonomous engine with hardened narration (H1 timeframe, PACK_ROUTED/HEDGE/TRADE_BLOCKED events)"
+    },
+    {
+      "label": "🛑 RLP: Stop Paper Runner",
+      "type": "shell",
+      "command": "bash",
+      "args": [
+        "-c",
+        "cd ${workspaceFolder} && pkill -f autonomous_decision_engine.py && echo '✅ Paper runner stopped' || echo '⚠️  No engine running'"
+      ],
+      "presentation": {
+        "reveal": "always",
+        "panel": "shared",
+        "focus": false
+      },
+      "detail": "Stop the autonomous engine paper trading process"
+    },
+    {
+      "label": "📊 RLP: View Narration Stats",
+      "type": "shell",
+      "command": "python3",
+      "args": ["${workspaceFolder}/scripts/print_narration_stats.py"],
+      "presentation": {
+        "reveal": "always",
+        "panel": "shared",
+        "focus": true
+      },
+      "detail": "Show PACK_ROUTED, HEDGE_ON/OFF, TRADE_BLOCKED event counts"
+    },
+    {
+      "label": "✅ RLP: Validate Narration JSONL",
+      "type": "shell",
+      "command": "python3",
+      "args": ["${workspaceFolder}/scripts/validate_narration_jsonl.py", "${workspaceFolder}/logs/narration.jsonl"],
+      "presentation": {
+        "reveal": "always",
+        "panel": "shared",
+        "focus": true
+      },
+      "detail": "Validate logs/narration.jsonl structure and required fields"
+    }
+    ,
+    {
+      "label": "📦 RLP: Package Support Bundle",
+      "type": "shell",
+      "command": "bash",
+      "args": ["-c", "cd ${workspaceFolder} && chmod +x scripts/package_support_bundle.sh 2>/dev/null || true && scripts/package_support_bundle.sh"],
+      "presentation": {
+        "reveal": "always",
+        "panel": "dedicated",
+        "focus": true
+      },
+      "detail": "Create support_upload_*/{logs.zip, code_config.zip} with sanitized .env and curated files"
+    }
+  ],
+  "inputs": [
+    {
+      "id": "IBHost",
+      "type": "promptString",
+      "description": "Enter IB Gateway/TWS host (e.g., 127.0.0.1 or Windows host IP)",
+      "default": "127.0.0.1"
+    },
+    {
+      "id": "IBPort",
+      "type": "promptString",
+      "description": "Enter API port (paper=4002, live=4001)",
+      "default": "4002"
+    }
+  ]
+}

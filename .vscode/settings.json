@@ -1,0 +1,35 @@
+{
+  "files.watcherExclude": {
+    "**/.git/**": true,
+    "**/.git/objects/**": true,
+    "**/.git/subtree-cache/**": true,
+    "**/node_modules/**": true,
+    "**/__pycache__/**": true,
+    "**/.venv/**": true,
+    "**/.venv_*/**": true,
+    "**/.venv_dashboard/**": true,
+    "**/.archive_*/**": true,
+    "**/snapshots/**": true,
+    "**/logs/**": true,
+    "**/data/**": true,
+    "**/backtesting/**": true
+  },
+  "search.exclude": {
+    "**/.git": true,
+    "**/node_modules": true,
+    "**/__pycache__": true,
+    "**/.venv": true,
+    "**/.venv_*": true,
+    "**/.venv_dashboard": true,
+    "**/.archive_*": true,
+    "**/snapshots": true,
+    "**/logs": false,
+    "**/data": true,
+    "**/backtesting": true
+  },
+  "files.exclude": {
+    "**/.venv": false,
+    "**/.venv_*": false,
+    "**/.venv_dashboard": false
+  }
+}

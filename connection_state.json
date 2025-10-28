@@ -1,0 +1,22 @@
+{
+  "connected": true,
+  "timestamp": "2025-10-28T09:05:38.179700+00:00",
+  "account_nav": 1881.2829,
+  "account_balance": 1815.9619,
+  "margin_used": 944.8396,
+  "open_trades": [
+    {
+      "instrument": "GBP_CHF",
+      "trade_id": "8222",
+      "side": "SHORT",
+      "units": 14200.0,
+      "entry_price": 1.06024,
+      "current_price": 1.05659,
+      "pnl": -51.83000000000217,
+      "pnl_pips": 36.50000000000153,
+      "sl_price": null,
+      "tp_price": null,
+      "hold_time_seconds": 21352.126557
+    }
+  ]
+}

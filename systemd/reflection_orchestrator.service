@@ -1,0 +1,31 @@
+[Unit]
+Description=RICK Hive Mind Reflection Orchestrator (30-second autonomous trade management)
+Documentation=file:///home/ing/RICK/RICK_LIVE_PROTOTYPE/HIVE_REFLECTION_GUIDE.md
+Wants=reflection_orchestrator.timer
+After=network-online.target
+Requires=reflection_orchestrator.timer
+
+[Service]
+Type=simple
+User=ing
+WorkingDirectory=/home/ing/RICK/RICK_LIVE_PROTOTYPE
+ExecStart=/usr/bin/python3 /home/ing/RICK/RICK_LIVE_PROTOTYPE/hive/hive_reflection_orchestrator.py --mode daemon --environment practice --interval 30
+Restart=on-failure
+RestartSec=10
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier=rick-hive-reflection
+
+# Safety limits
+StartLimitBurst=5
+StartLimitIntervalSec=300
+
+# Process management
+KillMode=process
+KillSignal=SIGTERM
+
+# Environment
+Environment="PATH=/home/ing/RICK/RICK_LIVE_PROTOTYPE/.venv/bin:/usr/local/bin:/usr/bin:/bin"
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,105 @@
+# 🔐 IMMUTABLE PARAMETERS QUICK REFERENCE
+
+**PIN: 841921** (double-entry required for ANY change)
+
+---
+
+## ⚡ CANNOT BE CHANGED (Ever)
+
+| Parameter | Current Value | Why Immutable |
+|-----------|---------------|---------------|
+| Charter PIN | 841921 | Core authentication |
+| Margin Cap | 35% | Risk foundation |
+| Max Positions | 3 | Portfolio management |
+| Max Hold Time | 6 hours | Risk exposure limit |
+| Min Risk:Reward | 3.2:1 | Profitability threshold |
+| Min Notional | $15,000 | Position sizing |
+| Root Folder | /RICK_LIVE_PROTOTYPE/ | Deployment boundary |
+| Gates Enabled | All 4 required | Risk management |
+| Audit Logging | Always on | Compliance |
+| Double-PIN Entry | Required | Approval process |
+
+---
+
+## ✅ CAN BE CHANGED (with PIN 841921 + explanation)
+
+| Parameter | Current | Allowed Changes |
+|-----------|---------|-----------------|
+| Charter constants | (see Section 3) | Via PIN + audit trail |
+| Environment vars | (in .env) | Via PIN + audit trail |
+| Gating thresholds | (in rules.py) | Via PIN + audit trail |
+| Logging level | DEBUG/INFO/WARN | No PIN needed |
+| Strategy params | (Charter-compliant) | No PIN needed |
+| API endpoints | (non-critical) | No PIN needed |
+
+---
+
+## 🚀 TO REQUEST A CHANGE
+
+**Format**:
+```
+[CHANGE REQUEST]
+PIN (1st entry): 841921
+PIN (2nd entry): 841921
+Parameter: [what]
+From: [current value]
+To: [new value]
+Reason: [50+ words explaining why]
+Approval: [who authorized]
+Impact: [what happens]
+Rollback: [how to undo]
+```
+
+**Example**:
+```
+[CHANGE REQUEST]
+PIN (1st): 841921
+PIN (2nd): 841921
+Parameter: MAX_MARGIN_UTILIZATION_PCT
+From: 0.35 (35%)
+To: 0.30 (30%)
+Reason: Current volatility spike makes 35% utilization too risky. 
+Risk team has approved reduction to 30% for safer operation. 
+This reduces maximum position exposure by 15% while maintaining 
+trading capability on high-conviction setups.
+Approval: Risk Committee, Signature: [PIN verification]
+Impact: Max simultaneous margin reduced from $689 to $591 (on $1,970 nav)
+Rollback: Restore from rick_charter.py.backup.[timestamp]
+```
+
+---
+
+## 📋 CHANGE CHECKLIST
+
+- [ ] Identified immutable parameter
+- [ ] Calculated business impact
+- [ ] Obtained authorization
+- [ ] Prepared rollback plan
+- [ ] Written 50+ word explanation
+- [ ] Ready PIN (841921)
+- [ ] Backup will be created
+- [ ] Audit trail will log change
+- [ ] Services will restart
+
+---
+
+## 🔒 LOCKED FOREVER (No Exception)
+
+**These can NEVER be changed, even with PIN**:
+
+❌ Remove margin cap  
+❌ Allow 4+ positions  
+❌ Disable gates  
+❌ Change PIN from 841921  
+❌ Enable live trading without approval framework  
+❌ Remove audit logging  
+❌ Change root folder  
+❌ Remove charter verification  
+❌ Disable position tracking  
+❌ Allow trading outside 6h max hold  
+
+---
+
+## 📞 QUESTIONS?
+
+Refer to: `IMMUTABLE_PARAMETERS_ADDENDUM.md` (full documentation)

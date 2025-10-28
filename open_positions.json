@@ -1,0 +1,17 @@
+{
+  "positions": [
+    {
+      "instrument": "GBP_CHF",
+      "trade_id": "8222",
+      "side": "SHORT",
+      "units": 14200.0,
+      "entry_price": 1.06024,
+      "current_price": 1.05659,
+      "pnl": -51.83000000000217,
+      "pnl_pips": 36.50000000000153,
+      "sl_price": null,
+      "tp_price": null,
+      "hold_time_seconds": 21352.126557
+    }
+  ]
+}

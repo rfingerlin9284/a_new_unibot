@@ -1,0 +1,163 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "🤖 START OANDA Paper Trading (ONE-CLICK)",
+            "type": "shell",
+            "command": "./START_OANDA_TRADING.sh",
+            "problemMatcher": [],
+            "presentation": {
+                "reveal": "always",
+                "panel": "dedicated",
+                "focus": true,
+                "clear": true,
+                "showReuseMessage": false
+            },
+            "runOptions": {
+                "instanceLimit": 1
+            },
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "detail": "Start OANDA paper trading with Ollama + Hive Mind (PIN: 841921)"
+        },
+        {
+            "label": "📊 View OANDA Account Balance",
+            "type": "shell",
+            "command": "python3 canary_oanda_connector.py",
+            "problemMatcher": [],
+            "presentation": {
+                "reveal": "always",
+                "panel": "new",
+                "focus": true,
+                "clear": true
+            },
+            "detail": "Quick check of OANDA practice account status"
+        },
+        {
+            "label": "🧪 Test OANDA Connection",
+            "type": "shell",
+            "command": "python3 test_live_brokers.py --paper",
+            "problemMatcher": [],
+            "presentation": {
+                "reveal": "always",
+                "panel": "new",
+                "focus": true,
+                "clear": true
+            },
+            "detail": "Verify OANDA practice API connectivity"
+        },
+        {
+            "label": "🛑 Stop All Trading",
+            "type": "shell",
+            "command": "pkill -f 'oanda_trading_engine.py|oanda_paper_trading.py' && echo '✅ Trading stopped'",
+            "problemMatcher": [],
+            "presentation": {
+                "reveal": "always",
+                "panel": "new",
+                "focus": true
+            },
+            "detail": "Emergency stop - kill all trading processes"
+        },
+        {
+            "label": "🔧 Start Ollama (Rick's Narration)",
+            "type": "shell",
+            "command": "ollama serve",
+            "isBackground": true,
+            "problemMatcher": [],
+            "presentation": {
+                "reveal": "silent",
+                "panel": "new"
+            },
+            "detail": "Start Ollama server for AI narration"
+        },
+        {
+            "label": "📜 View Narration Log",
+            "type": "shell",
+            "command": "tail -f narration.jsonl | jq -r '.narration' 2>/dev/null || tail -f narration.jsonl",
+            "isBackground": true,
+            "problemMatcher": [],
+            "presentation": {
+                "reveal": "always",
+                "panel": "dedicated",
+                "focus": true
+            },
+            "detail": "Live stream of Rick's trading narration"
+        },
+        {
+            "label": "🎮 START TMUX DASHBOARD (3-Pane Layout)",
+            "type": "shell",
+            "command": "bash",
+            "args": ["start_dashboard.sh"],
+            "isBackground": true,
+            "problemMatcher": [],
+            "presentation": {
+                "reveal": "always",
+                "panel": "dedicated",
+                "focus": true
+            },
+            "group": "build",
+            "detail": "Open tmux dashboard: Large left (narration) + Top-right (AI decisions) + Bottom-right (commands)"
+        },
+        {
+            "label": "📊 Dashboard: Live Monitor (Narration + Positions)",
+            "type": "shell",
+            "command": "python3",
+            "args": ["dashboard_live_monitor.py"],
+            "isBackground": true,
+            "problemMatcher": [],
+            "presentation": {
+                "reveal": "always",
+                "panel": "dedicated",
+                "focus": true
+            },
+            "group": "build",
+            "detail": "Display live narration, positions, and Charter parameters"
+        },
+        {
+            "label": "🧠 Dashboard: AI Decision Monitor (Real-time Filtering)",
+            "type": "shell",
+            "command": "python3",
+            "args": ["ai_decision_monitor.py"],
+            "isBackground": true,
+            "problemMatcher": [],
+            "presentation": {
+                "reveal": "always",
+                "panel": "dedicated",
+                "focus": true
+            },
+            "group": "build",
+            "detail": "Display ML analysis, smart logic, Guardian filtering, and 'green light' status"
+        },
+        {
+            "label": "🎮 Dashboard: Interactive Command Terminal",
+            "type": "shell",
+            "command": "bash",
+            "args": ["interactive_command_terminal.sh"],
+            "isBackground": true,
+            "problemMatcher": [],
+            "presentation": {
+                "reveal": "always",
+                "panel": "dedicated",
+                "focus": true
+            },
+            "group": "build",
+            "detail": "Manual control: start/stop engine, log messages, check positions"
+        },
+        {
+            "label": "✅ Verify Dashboard Setup",
+            "type": "shell",
+            "command": "bash",
+            "args": ["-c", "echo '✅ Dashboard Files:' && ls -lh start_dashboard.sh dashboard_live_monitor.py ai_decision_monitor.py interactive_command_terminal.sh"],
+            "problemMatcher": [],
+            "presentation": {
+                "reveal": "always",
+                "panel": "new",
+                "focus": false
+            },
+            "group": "build",
+            "detail": "Verify all dashboard files are present and executable"
+        }
+    ]
+}
